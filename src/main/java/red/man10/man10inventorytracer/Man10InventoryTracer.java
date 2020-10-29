@@ -3,8 +3,6 @@ package red.man10.man10inventorytracer;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -93,7 +91,7 @@ public final class Man10InventoryTracer extends JavaPlugin implements Listener {
             public void run() {
                 Thread t = new Thread(
                         () -> {
-                            String str = "INSERT INTO man10_inventory_database (`id`,`name`,`uuid`,`data`,`date_time`) VALUES ";
+                            String str = "INSERT INTO man10_inventory_database (`id`,`name`,`uuid`,`data`,`date_time`) VALUES " +"";
                             for(Player p : Bukkit.getServer().getOnlinePlayers()){
                                 str += getRegisterPlayerInventoryQuery(p);
                             }
@@ -177,11 +175,12 @@ public final class Man10InventoryTracer extends JavaPlugin implements Listener {
         // Plugin shutdown logic
         Thread t = new Thread(
                 () -> {
-                    String str = "INSERT INTO man10_inventory_database (`id`,`name`,`uuid`,`data`,`date_time`) VALUES";
+                    String str = "INSERT INTO man10_inventory_database (`id`,`name`,`uuid`,`data`,`date_time`) VALUES" +"";
                     for(Player p : Bukkit.getServer().getOnlinePlayers()){
                         str += getRegisterPlayerInventoryQuery(p);
                     }
                     String FinalQuery = str.substring(0, str.length() - 1);
+                    Bukkit.getLogger().info(FinalQuery);
                     mysql.execute(FinalQuery);
                 }
         );
