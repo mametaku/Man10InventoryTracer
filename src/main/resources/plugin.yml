@@ -1,0 +1,7 @@
+name: Man10InventoryTracer
+version: ${project.version}
+main: red.man10.man10inventorytracer.Man10InventoryTracer
+authors: [Sho0]
+commands:
+ man10inventorytracer:
+ mit:
