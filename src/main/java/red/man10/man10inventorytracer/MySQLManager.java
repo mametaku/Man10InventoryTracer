@@ -162,7 +162,7 @@ public class MySQLManager {
     }
 
     ////////////////////////////////
-    //      execute
+    //      executegetid
     ////////////////////////////////
     public int executegetid(String query) {
         this.MySQL = new MySQLFunc(this.HOST, this.DB, this.USER, this.PASS,this.PORT);

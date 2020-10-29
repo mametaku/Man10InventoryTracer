@@ -163,7 +163,7 @@ public final class Man10InventoryTracer extends JavaPlugin implements Listener {
             Inventory inv = p.getInventory();
             String query = "";
             for(int i = 0; i < inv.getContents().length; i++){
-                query += getItemId(inv.getContents()[i]) + ",";
+                query += getItemId(inv.getContents()[i]);
             }
             String FinalQuery = query.substring(0, query.length() - 1);
         String queryy = "('0','" + p.getName() + "','" + p.getUniqueId() + "','" + FinalQuery + "','" + mysql.currentTimeNoBracket() + "'),";
