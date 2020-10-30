@@ -3,10 +3,7 @@ package red.man10.man10inventorytracer;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -164,30 +161,24 @@ public class MySQLManager {
     ////////////////////////////////
     //      executegetid
     ////////////////////////////////
-    public int executegetid(String query) {
-        this.MySQL = new MySQLFunc(this.HOST, this.DB, this.USER, this.PASS,this.PORT);
-        this.con = this.MySQL.open();
-        if(this.con == null){
-            Bukkit.getLogger().info("failed to open MYSQL");
-            return 0;
-        }
-        boolean ret = true;
-        if (debugMode){
-            plugin.getLogger().info("query:" + query);
-        }
-
+    public int executeGetId(String query) {
+        int key = -1;
         try {
-            this.st = this.con.createStatement();
-            this.st.execute(query);
-        } catch (SQLException var3) {
-            this.plugin.getLogger().info("[" + this.conName + "] Error executing statement: " +var3.getErrorCode() +":"+ var3.getLocalizedMessage());
-            this.plugin.getLogger().info(query);
+            this.MySQL = new MySQLFunc(this.HOST, this.DB, this.USER, this.PASS, this.PORT);
+            this.con = this.MySQL.open();
 
+            PreparedStatement pstmt = this.con.prepareStatement(query, 1);
+            pstmt.executeUpdate();
+            ResultSet keys = pstmt.getGeneratedKeys();
+            keys.next();
+            key = keys.getInt(1);
         }
-
-        this.close();
-        return 0;
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return key;
     }
+
 
     ////////////////////////////////
     //      query
