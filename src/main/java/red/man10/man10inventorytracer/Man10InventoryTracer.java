@@ -36,7 +36,6 @@ public final class Man10InventoryTracer extends JavaPlugin implements Listener {
     public HashMap<UUID, List<String>> playerHashmap = new HashMap<>();
     public HashMap<UUID, List<String>> playerHashmapTime = new HashMap<>();
 
-
     String tableInventory = "CREATE TABLE `man10_inventory_database` (\n" +
             "\t`id` BIGINT(20) NOT NULL AUTO_INCREMENT,\n" +
             "\t`name` VARCHAR(32) NULL DEFAULT '0',\n" +
@@ -288,7 +287,6 @@ public final class Man10InventoryTracer extends JavaPlugin implements Listener {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream);
             ItemStack[] items = new ItemStack[1];
-            item.setAmount(1);
             items[0] = item;
             dataOutput.writeInt(items.length);
 
