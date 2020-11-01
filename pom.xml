@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>red.man10</groupId>
-    <artifactId>Man10InventoryTracer</artifactId>
+    <artifactId>man10inventorytracer</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Man10InventoryTracer</name>
+    <name>Man10inventorytracer</name>
 
     <properties>
         <java.version>1.8</java.version>

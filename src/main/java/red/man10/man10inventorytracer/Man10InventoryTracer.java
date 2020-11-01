@@ -110,7 +110,7 @@ public final class Man10InventoryTracer extends JavaPlugin implements Listener {
         }
         int id = -1;
         if(!map.containsKey(item)){
-            id = mysql.executeGetId("INSERT INTO man10_item_database (`id`,`type`,`display_name`,`data`,`date_time`) VALUES ('0','" + getMysqlRealScapeString(item.getType().name()) + "','" + getMysqlRealScapeString(item.getItemMeta().getDisplayName()) + "','" + getMysqlRealScapeString(itemToBase64(item)) + "','" + MySQLManager.currentTimeNoBracket() + "');");
+            id = mysql.executeGetId("INSERT INTO man10_item_database (`id`,`type`,`display_name`,`data`,`date_time`) VALUES ('0','" + getMysqlRealScapeString(item.getType().name()) + "','" + getMysqlRealScapeString(item.getItemMeta().getDisplayName()) + "','" + getMysqlRealScapeString(itemToBase64(item)) + "','" + mysql.currentTimeNoBracket() + "');");
             map.put(item, id);
         }else{
             return map.get(item);
@@ -160,12 +160,12 @@ public final class Man10InventoryTracer extends JavaPlugin implements Listener {
     }
 
     public String getRegisterPlayerInventoryQuery(Player p){
-        Inventory inv = p.getInventory();
-        String query = "";
-        for(int i = 0; i < inv.getContents().length; i++){
-            query += getItemId(inv.getContents()[i]) + ",";
-        }
-        String FinalQuery = query.substring(0, query.length() - 1);
+            Inventory inv = p.getInventory();
+            String query = "";
+            for(int i = 0; i < inv.getContents().length; i++){
+                query += getItemId(inv.getContents()[i]) + ",";
+            }
+            String FinalQuery = query.substring(0, query.length() - 1);
         String queryy = "('0','" + p.getName() + "','" + p.getUniqueId() + "','" + FinalQuery + "','" + mysql.currentTimeNoBracket() + "'),";
         return queryy;
     }
@@ -175,12 +175,11 @@ public final class Man10InventoryTracer extends JavaPlugin implements Listener {
         // Plugin shutdown logic
         Thread t = new Thread(
                 () -> {
-                    String str = "INSERT INTO man10_inventory_database (`id`,`name`,`uuid`,`data`,`date_time`) VALUES" +"";
+                    String str = "INSERT INTO man10_inventory_database (`id`,`name`,`uuid`,`data`,`date_time`) VALUES";
                     for(Player p : Bukkit.getServer().getOnlinePlayers()){
                         str += getRegisterPlayerInventoryQuery(p);
                     }
                     String FinalQuery = str.substring(0, str.length() - 1);
-                    Bukkit.getLogger().info(FinalQuery);
                     mysql.execute(FinalQuery);
                 }
         );

@@ -52,7 +52,7 @@ public class Man10InventoryTracerCommand implements CommandExecutor {
             if(args[0].equalsIgnoreCase("list")){
                 if(p.hasPermission("man10.inventorytracer.list")){
                     int page = 0;
-                    UUID target =  Bukkit.getPlayerUniqueId(args[1]);
+                    UUID target = plugin.pda.getUUIDFromName(args[1]);
                     if(target == null){
                         p.sendMessage(prefix + "§4そのプレイヤーは存在しません");
                         return false;
@@ -84,7 +84,7 @@ public class Man10InventoryTracerCommand implements CommandExecutor {
         if(args.length == 3){
             if(args[0].equalsIgnoreCase("set")){
                 if(p.hasPermission("man10.inventorytracer.set")){
-                    UUID target =  Bukkit.getPlayerUniqueId(args[1]);
+                    UUID target = plugin.pda.getUUIDFromName(args[1]);
                     if(target == null){
                         p.sendMessage(prefix + "§4そのプレイヤーは存在しません");
                         return false;
@@ -119,7 +119,7 @@ public class Man10InventoryTracerCommand implements CommandExecutor {
             }
             if(args[0].equalsIgnoreCase("view")){
                 if(p.hasPermission("man10.inventorytracer.view")){
-                    UUID target = Bukkit.getPlayerUniqueId(args[1]);
+                    UUID target = plugin.pda.getUUIDFromName(args[1]);
                     if(target == null){
                         p.sendMessage(prefix + "§4そのプレイヤーは存在しません");
                         return false;
@@ -155,7 +155,7 @@ public class Man10InventoryTracerCommand implements CommandExecutor {
                         p.sendMessage(prefix + "§4ページは数字でなくてはなりません");
                         return false;
                     }
-                    UUID target =  Bukkit.getPlayerUniqueId(args[1]);
+                    UUID target = plugin.pda.getUUIDFromName(args[1]);
                     if(target == null){
                         p.sendMessage(prefix + "§4そのプレイヤーは存在しません");
                         return false;
